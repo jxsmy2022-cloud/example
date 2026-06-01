@@ -552,17 +552,46 @@
       background: #eef8f3;
     }
 
-    .review-grid {
+    .review-carousel {
+      position: relative;
+    }
+
+    .review-viewport {
+      overflow: hidden;
+    }
+
+    .review-track {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-flow: column;
+      grid-auto-columns: calc((100% - 36px) / 3);
       gap: 18px;
+      transition: transform .45s ease;
     }
 
     .review {
+      min-height: 238px;
       padding: 24px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: white;
+      box-shadow: 0 14px 34px rgba(23, 36, 43, .08);
+    }
+
+    .review-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .review-tag {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #fff7e7;
+      color: #8d5f0f;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .stars {
@@ -583,6 +612,56 @@
     .review span {
       color: var(--muted);
       font-size: 13px;
+    }
+
+    .review-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .review-button {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(29, 123, 115, .18);
+      border-radius: 50%;
+      background: white;
+      color: var(--teal);
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .review-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(29, 123, 115, .16);
+      background: #f7fffb;
+    }
+
+    .review-dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 86px;
+      justify-content: center;
+    }
+
+    .review-dot {
+      width: 8px;
+      height: 8px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(29, 123, 115, .25);
+      cursor: pointer;
+      transition: width .2s ease, background .2s ease;
+    }
+
+    .review-dot.active {
+      width: 24px;
+      background: var(--teal);
     }
 
     footer {
@@ -636,9 +715,12 @@
         max-width: 560px;
       }
 
-      .service-grid,
-      .review-grid {
+      .service-grid {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .review-track {
+        grid-auto-columns: calc((100% - 18px) / 2);
       }
 
       .steps {
@@ -680,9 +762,12 @@
 
       .form-grid,
       .service-grid,
-      .steps,
-      .review-grid {
+      .steps {
         grid-template-columns: 1fr;
+      }
+
+      .review-track {
+        grid-auto-columns: 100%;
       }
 
       section {
@@ -913,27 +998,81 @@
       <div class="section-inner">
         <div class="section-title">
           <h2>顾客评价</h2>
-          <p>来自附近社区宠物主的真实反馈风格展示，可替换为你的实际评价内容。</p>
+          <p>从第一次到店到长期护理，记录宠物主最在意的温柔沟通、细节反馈和稳定效果。</p>
         </div>
-        <div class="review-grid">
-          <article class="review">
-            <div class="stars">★★★★★</div>
-            <p>我家小狗很怕吹风，这次护理师分段休息，洗完毛很蓬松，状态也很放松。</p>
-            <strong>豆豆主人</strong>
-            <span>小型犬精致洗护</span>
-          </article>
-          <article class="review">
-            <div class="stars">★★★★★</div>
-            <p>猫咪洗澡一直是难题，店里反馈很细，还提醒了耳朵清洁和掉毛期梳理。</p>
-            <strong>芝麻主人</strong>
-            <span>猫咪舒缓洗护</span>
-          </article>
-          <article class="review">
-            <div class="stars">★★★★★</div>
-            <p>修剪前会先确认想要的长度，剪完很清爽，不是那种一刀切的造型。</p>
-            <strong>阿布主人</strong>
-            <span>造型修剪</span>
-          </article>
+        <div class="review-carousel" aria-label="顾客评价轮播">
+          <div class="review-viewport">
+            <div class="review-track">
+              <article class="review">
+                <div class="review-top">
+                  <div class="stars">★★★★★</div>
+                  <span class="review-tag">回访好评</span>
+                </div>
+                <p>我家小狗很怕吹风，护理师会分段休息、边安抚边处理，洗完毛很蓬松，回家一路都很放松。</p>
+                <strong>豆豆主人</strong>
+                <span>小型犬精致洗护</span>
+              </article>
+              <article class="review">
+                <div class="review-top">
+                  <div class="stars">★★★★★</div>
+                  <span class="review-tag">猫咪友好</span>
+                </div>
+                <p>猫咪洗澡一直是难题，店里反馈很细，还提醒了耳朵清洁和掉毛期梳理，整个过程比想象中顺利。</p>
+                <strong>芝麻主人</strong>
+                <span>猫咪舒缓洗护</span>
+              </article>
+              <article class="review">
+                <div class="review-top">
+                  <div class="stars">★★★★★</div>
+                  <span class="review-tag">造型满意</span>
+                </div>
+                <p>修剪前会先确认想要的长度和脸型，剪完很清爽，不是那种一刀切的造型，拍照特别精神。</p>
+                <strong>阿布主人</strong>
+                <span>造型修剪</span>
+              </article>
+              <article class="review">
+                <div class="review-top">
+                  <div class="stars">★★★★★</div>
+                  <span class="review-tag">细节放心</span>
+                </div>
+                <p>预约前会问皮肤状态和过敏史，到店后又确认了一遍。洗完还给了护理建议，这点很加分。</p>
+                <strong>奶茶主人</strong>
+                <span>敏感肌温和洗护</span>
+              </article>
+              <article class="review">
+                <div class="review-top">
+                  <div class="stars">★★★★★</div>
+                  <span class="review-tag">效率稳定</span>
+                </div>
+                <p>大型犬洗护最怕等太久，这里时间安排很准，吹干也很彻底，毛根不潮，味道清爽不刺鼻。</p>
+                <strong>可乐主人</strong>
+                <span>大型犬深层洗护</span>
+              </article>
+              <article class="review">
+                <div class="review-top">
+                  <div class="stars">★★★★★</div>
+                  <span class="review-tag">新手友好</span>
+                </div>
+                <p>第一次带幼犬洗澡有点紧张，工作人员解释得很清楚，还教了回家梳毛和擦脚的方法。</p>
+                <strong>栗子主人</strong>
+                <span>幼犬首次护理</span>
+              </article>
+              <article class="review">
+                <div class="review-top">
+                  <div class="stars">★★★★★</div>
+                  <span class="review-tag">长期复购</span>
+                </div>
+                <p>已经连续来三个月了，每次都会记录上次的毛量和皮肤情况，感觉不是单次洗澡，而是在长期照顾。</p>
+                <strong>年糕主人</strong>
+                <span>月度护理套餐</span>
+              </article>
+            </div>
+          </div>
+          <div class="review-controls">
+            <button class="review-button review-prev" type="button" aria-label="上一组评价">‹</button>
+            <div class="review-dots" aria-label="评价轮播分页"></div>
+            <button class="review-button review-next" type="button" aria-label="下一组评价">›</button>
+          </div>
         </div>
       </div>
     </section>
@@ -950,6 +1089,7 @@
     const form = document.querySelector("#bookingForm");
     const toast = document.querySelector("#toast");
     const groomingCarousel = document.querySelector(".grooming-carousel");
+    const reviewCarousel = document.querySelector(".review-carousel");
 
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -1005,6 +1145,81 @@
       });
 
       startCarousel();
+    }
+
+    if (reviewCarousel) {
+      const track = reviewCarousel.querySelector(".review-track");
+      const viewport = reviewCarousel.querySelector(".review-viewport");
+      const cards = [...reviewCarousel.querySelectorAll(".review")];
+      const dotsWrap = reviewCarousel.querySelector(".review-dots");
+      const prevButton = reviewCarousel.querySelector(".review-prev");
+      const nextButton = reviewCarousel.querySelector(".review-next");
+      let activeIndex = 0;
+      let maxIndex = 0;
+      let timer;
+
+      const getStep = () => {
+        const gap = Number.parseFloat(window.getComputedStyle(track).columnGap) || 0;
+        const cardWidth = cards[0]?.getBoundingClientRect().width || 0;
+        return cardWidth + gap;
+      };
+
+      const renderDots = () => {
+        dotsWrap.innerHTML = "";
+        for (let index = 0; index <= maxIndex; index += 1) {
+          const dot = document.createElement("button");
+          dot.className = "review-dot";
+          dot.type = "button";
+          dot.setAttribute("aria-label", `查看第 ${index + 1} 组评价`);
+          dot.addEventListener("click", () => {
+            showReview(index);
+            startReviewCarousel();
+          });
+          dotsWrap.appendChild(dot);
+        }
+      };
+
+      const updateReviewMetrics = () => {
+        const step = getStep();
+        const visibleCount = Math.max(1, Math.round((viewport.clientWidth + 18) / step));
+        maxIndex = Math.max(0, cards.length - visibleCount);
+        activeIndex = Math.min(activeIndex, maxIndex);
+        renderDots();
+        showReview(activeIndex);
+      };
+
+      const showReview = (index) => {
+        activeIndex = maxIndex ? (index + maxIndex + 1) % (maxIndex + 1) : 0;
+        track.style.transform = `translateX(-${activeIndex * getStep()}px)`;
+        [...dotsWrap.children].forEach((dot, dotIndex) => {
+          dot.classList.toggle("active", dotIndex === activeIndex);
+          dot.toggleAttribute("aria-current", dotIndex === activeIndex);
+        });
+      };
+
+      const startReviewCarousel = () => {
+        window.clearInterval(timer);
+        timer = window.setInterval(() => showReview(activeIndex + 1), 3600);
+      };
+
+      prevButton.addEventListener("click", () => {
+        showReview(activeIndex - 1);
+        startReviewCarousel();
+      });
+
+      nextButton.addEventListener("click", () => {
+        showReview(activeIndex + 1);
+        startReviewCarousel();
+      });
+
+      reviewCarousel.addEventListener("mouseenter", () => window.clearInterval(timer));
+      reviewCarousel.addEventListener("mouseleave", startReviewCarousel);
+      reviewCarousel.addEventListener("focusin", () => window.clearInterval(timer));
+      reviewCarousel.addEventListener("focusout", startReviewCarousel);
+      window.addEventListener("resize", updateReviewMetrics);
+
+      updateReviewMetrics();
+      startReviewCarousel();
     }
   </script>
 </body>
