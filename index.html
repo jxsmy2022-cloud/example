@@ -493,24 +493,27 @@
 
     .shop {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
-      gap: 34px;
-      align-items: center;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: start;
     }
 
     .shop-photo {
       position: relative;
+      order: 2;
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
     }
 
     .shop-photo img {
-      aspect-ratio: 1.18;
-      object-fit: cover;
+      height: auto;
+      aspect-ratio: auto;
+      object-fit: contain;
     }
 
     .shop-info {
+      order: 1;
       display: grid;
       gap: 16px;
     }
