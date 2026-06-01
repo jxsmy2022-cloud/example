@@ -768,10 +768,14 @@
                 <input type="date" name="date" required>
               </label>
               <label>
-                联系电话
-                <input type="tel" name="phone" placeholder="手机号" required>
+                期望到店时间
+                <input type="time" name="arrival" min="10:00" max="20:30" step="1800" required>
               </label>
             </div>
+            <label>
+              联系电话
+              <input type="tel" name="phone" placeholder="手机号" required>
+            </label>
             <label>
               备注
               <textarea name="note" placeholder="可填写掉毛、怕水、皮肤敏感等情况"></textarea>
@@ -955,7 +959,9 @@
       const data = new FormData(form);
       const pet = data.get("pet") || "宠物";
       const service = data.get("service") || "洗护";
-      toast.textContent = `${pet} 的${service}预约已收到，我们会尽快电话确认。`;
+      const arrival = data.get("arrival");
+      const arrivalText = arrival ? `，期望${arrival}到店` : "";
+      toast.textContent = `${pet} 的${service}预约已收到${arrivalText}，我们会尽快电话确认。`;
       toast.classList.add("show");
       form.reset();
       form.elements.date.min = `${yyyy}-${mm}-${dd}`;
